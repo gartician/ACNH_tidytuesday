@@ -1,8 +1,8 @@
 # Animal Crossing New Horizons - Tidy Tuesday
 
-# Question: What if animal crossing villager's personalities are affected by their birth month?
+## Question: What if animal crossing villager's personalities are affected by their birth month?
 
-# Method
+## Method
 
 ```R
 library(ggplot2)
@@ -40,7 +40,7 @@ animate(bd_personality, duration = 15, fps = 3, width = 800, height = 800, rende
 anim_save(here("gifs/ACNH_horoscopes.gif"))
 ```
 
-# Results
+## Results
 
 ![ACNH personality by birth month](ACNH_horoscopes.gif)
 
@@ -52,7 +52,7 @@ anim_save(here("gifs/ACNH_horoscopes.gif"))
 
 * Uchi personalities are highest between March and June
 
-# Takeaways
+## Takeaways
 
 * Initially there were too many personalities to overlay in one plot (8), so my solution was to show one personality at a time with `gganimate` to minimze distraction and keep the audience engaged.
 
