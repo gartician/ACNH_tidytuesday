@@ -42,6 +42,8 @@ anim_save(here("gifs/ACNH_horoscopes.gif"))
 
 # Results
 
+![ACNH personality by birth month](ACNH_horoscopes.gif)
+
 * Villagers born in March are mostly normal.
 
 * Villagers are more smug if born in June or December.
@@ -54,8 +56,10 @@ anim_save(here("gifs/ACNH_horoscopes.gif"))
 
 * Initially there were too many personalities to overlay in one plot (8), so my solution was to show one personality at a time with `gganimate` to minimze distraction and keep the audience engaged.
 
-* Use `transition_states` to go through each personality; this is not an example of layering. 
+* Use `transition_states` to go through each personality (a level in a factor); this is not an example of layering. 
 
 * Use `theme(legend.position = "none")` after `dark_theme_gray` because ggdark will automatically add a legend.
+
+
 
 disclaimer: I personally do not believe in horoscopes, but I am creative enough to ask and answer this question. 
