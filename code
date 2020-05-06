@@ -1,0 +1,33 @@
+library(ggplot2)
+library(here)
+library(gganimate)
+library(ggdark)
+library(dplyr)
+
+critic <- readr::read_tsv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-05/critic.tsv')
+user_reviews <- readr::read_tsv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-05/user_reviews.tsv')
+items <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-05/items.csv')
+villagers <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-05/villagers.csv')
+
+# do birth month affect personality?
+villagers_bd <- villagers %>% 
+  tidyr::separate(birthday, into = c("month", "date"), "-") %>% 
+  select(month, personality)
+
+# convert frequency of personality by month into a df
+villagers_table <- data.frame(table(villagers_bd), stringsAsFactors = FALSE) # cols = month, personality, freq
+
+bd_personality <- ggplot(villagers_table, aes(x = as.factor(month), y = Freq, col = personality, group = personality)) +
+  geom_line(size = 2) +
+  geom_text(size = 12, aes(x="10", y = 10, label = personality)) +
+  ggtitle("ACNH personality by month") +
+  scale_x_discrete(name = "month", limits = as.character(seq(1, 12))) +
+  scale_color_brewer(palette = "Set1") +
+  dark_theme_gray() +
+  theme(legend.position = "none") + # add last because dark_mode() automatically adds legend.
+  theme(text = element_text(size = 18)) + 
+  # animation
+  transition_states(personality)
+
+animate(bd_personality, duration = 15, fps = 3, width = 800, height = 800, renderer = gifski_renderer())
+anim_save(here("gifs/ACNH_horoscopes.gif"))
